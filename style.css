@@ -1,0 +1,939 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #75b9e8;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 24px 16px;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.container {
+    width: 100%;
+    max-width: 430px;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.14);
+
+    text-align: center;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+h1 {
+    font-size: 22px;
+    line-height: 1.2;
+
+    color: #30343b;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   SCORE BOARD
+========================================= */
+
+.score-board {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.box {
+    min-height: 48px;
+
+    background: #f5f5f7;
+
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.box h3 {
+    font-size: 10px;
+    font-weight: 600;
+
+    color: #444;
+
+    margin-bottom: 3px;
+}
+
+.box p {
+    font-size: 16px;
+    font-weight: 700;
+
+    color: #38a653;
+}
+
+
+/* =========================================
+   GAME AREA
+========================================= */
+
+.game-area {
+    width: 100%;
+    max-width: 360px;
+
+    /*
+       Keeps the same game proportion
+       on every device.
+    */
+    aspect-ratio: 1.4 / 1;
+
+    margin: 0 auto;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: 2px solid #35662e;
+
+    border-radius: 7px;
+
+    background:
+        linear-gradient(to bottom,
+            #8fcbe5 0%,
+            #8fcbe5 82%,
+            #73b95d 82%,
+            #73b95d 100%);
+}
+
+
+/* =========================================
+   GRASS
+========================================= */
+
+.game-area::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 18%;
+
+    background: #73b95d;
+
+    z-index: 5;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   CLOUDS
+========================================= */
+
+.cloud {
+    position: absolute;
+
+    width: 34px;
+    height: 11px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    opacity: 0.95;
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+.cloud::before {
+    content: "";
+
+    position: absolute;
+
+    width: 45%;
+    aspect-ratio: 1;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    left: 12%;
+    top: -45%;
+}
+
+.cloud::after {
+    content: "";
+
+    position: absolute;
+
+    width: 55%;
+    aspect-ratio: 1;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    right: 8%;
+    top: -60%;
+}
+
+
+/* =========================================
+   CLOUD ANIMATION
+========================================= */
+
+.cloud1 {
+    left: 0;
+    top: 12%;
+
+    animation: cloudMove1 18s linear infinite;
+}
+
+.cloud2 {
+    left: 35%;
+    top: 27%;
+
+    animation: cloudMove2 25s linear infinite;
+}
+
+@keyframes cloudMove1 {
+    from {
+        transform: translateX(-60px);
+    }
+
+    to {
+        transform: translateX(420px);
+    }
+}
+
+@keyframes cloudMove2 {
+    from {
+        transform: translateX(-120px) scale(0.8);
+    }
+
+    to {
+        transform: translateX(390px) scale(0.8);
+    }
+}
+
+
+/* =========================================
+   BIRD
+========================================= */
+
+#bird {
+    position: absolute;
+
+    left: 18%;
+
+    width: 9%;
+    aspect-ratio: 1;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10;
+
+    font-size: clamp(18px, 6vw, 25px);
+
+    line-height: 1;
+
+    user-select: none;
+
+    pointer-events: none;
+}
+
+#bird::before {
+    content: "🦅";
+
+    display: block;
+
+    transform: scaleX(-1);
+}
+
+
+/* =========================================
+   PIPES
+========================================= */
+
+.pipe {
+    position: absolute;
+
+    width: 16%;
+
+    background: #55a84f;
+
+    border: 2px solid #367a31;
+
+    z-index: 4;
+
+    right: auto;
+    left: 100%;
+
+    display: block;
+}
+
+
+/* =========================================
+   TOP PIPE
+========================================= */
+
+#pipe-top {
+    top: 0;
+}
+
+#pipe-top::after {
+    content: "";
+
+    position: absolute;
+
+    left: -6%;
+
+    bottom: -12px;
+
+    width: 112%;
+    height: 12px;
+
+    background: #55a84f;
+
+    border: 2px solid #367a31;
+
+    border-radius: 3px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   BOTTOM PIPE
+========================================= */
+
+#pipe-bottom {
+    bottom: 18%;
+}
+
+#pipe-bottom::before {
+    content: "";
+
+    position: absolute;
+
+    left: -6%;
+
+    top: -12px;
+
+    width: 112%;
+    height: 12px;
+
+    background: #55a84f;
+
+    border: 2px solid #367a31;
+
+    border-radius: 3px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   GAME OVER
+========================================= */
+
+#game-over {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: min(75%, 220px);
+
+    padding: 18px 15px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-radius: 9px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.16);
+
+    z-index: 20;
+
+    display: none;
+}
+
+#game-over h2 {
+    font-size: 22px;
+
+    color: #333;
+
+    margin-bottom: 5px;
+}
+
+#game-over p {
+    font-size: 11px;
+
+    color: #666;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.buttons {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 13px;
+
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+
+    background: #438dce;
+
+    color: white;
+
+    padding: 7px 13px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.1s ease;
+}
+
+button:hover {
+    background: #367db9;
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================
+   INSTRUCTIONS
+========================================= */
+
+.instructions {
+    margin-top: 13px;
+
+    padding: 11px;
+
+    background: #f5f5f7;
+
+    border-radius: 8px;
+
+    text-align: left;
+}
+
+.instructions h2 {
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #333;
+
+    margin-bottom: 7px;
+}
+
+.instructions ul {
+    padding-left: 18px;
+}
+
+.instructions li {
+    font-size: 10px;
+
+    line-height: 1.4;
+
+    color: #555;
+
+    margin: 4px 0;
+}
+
+
+/* =========================================
+   LARGE DESKTOP
+   1200px+
+========================================= */
+
+@media (min-width: 1200px) {
+
+    body {
+        padding-top: 40px;
+    }
+
+    .container {
+        max-width: 470px;
+
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 14px;
+    }
+
+    .score-board {
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .box {
+        min-height: 54px;
+    }
+
+    .box h3 {
+        font-size: 11px;
+    }
+
+    .box p {
+        font-size: 18px;
+    }
+
+    .game-area {
+        max-width: 390px;
+    }
+
+    .buttons {
+        margin-top: 15px;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 11px;
+    }
+
+    .instructions {
+        margin-top: 15px;
+        padding: 13px;
+    }
+
+    .instructions h2 {
+        font-size: 15px;
+    }
+
+    .instructions li {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================
+   DESKTOP / LAPTOP
+   769px - 1199px
+========================================= */
+
+@media (min-width: 769px) and (max-width: 1199px) {
+
+    body {
+        padding-top: 30px;
+    }
+
+    .container {
+        max-width: 440px;
+    }
+
+    .game-area {
+        max-width: 370px;
+    }
+}
+
+
+/* =========================================
+   TABLET
+   600px - 768px
+========================================= */
+
+@media (min-width: 600px) and (max-width: 768px) {
+
+    body {
+        padding: 22px 14px;
+    }
+
+    .container {
+        max-width: 420px;
+
+        padding: 14px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+
+    .game-area {
+        max-width: 350px;
+    }
+}
+
+
+/* =========================================
+   LARGE PHONE
+   451px - 599px
+========================================= */
+
+@media (min-width: 451px) and (max-width: 599px) {
+
+    body {
+        padding: 16px 10px;
+    }
+
+    .container {
+        max-width: 390px;
+
+        padding: 13px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .game-area {
+        max-width: 340px;
+    }
+
+    .box {
+        min-height: 46px;
+    }
+
+    button {
+        padding: 7px 12px;
+    }
+}
+
+
+/* =========================================
+   NORMAL PHONE
+   341px - 450px
+========================================= */
+
+@media (min-width: 341px) and (max-width: 450px) {
+
+    body {
+        padding: 12px 8px;
+    }
+
+    .container {
+        width: 100%;
+
+        max-width: 430px;
+
+        padding: 12px;
+
+        border-radius: 11px;
+    }
+
+    h1 {
+        font-size: 19px;
+
+        margin-bottom: 10px;
+    }
+
+    .score-board {
+        gap: 8px;
+
+        margin-bottom: 10px;
+    }
+
+    .box {
+        min-height: 46px;
+    }
+
+    .box h3 {
+        font-size: 9px;
+    }
+
+    .box p {
+        font-size: 15px;
+    }
+
+    .game-area {
+        width: 100%;
+
+        max-width: 360px;
+    }
+
+    .buttons {
+        gap: 8px;
+
+        margin-top: 11px;
+    }
+
+    button {
+        padding: 7px 11px;
+
+        font-size: 9px;
+    }
+
+    .instructions {
+        margin-top: 11px;
+
+        padding: 10px;
+    }
+
+    .instructions h2 {
+        font-size: 13px;
+    }
+
+    .instructions li {
+        font-size: 9px;
+
+        margin: 3px 0;
+    }
+}
+
+
+/* =========================================
+   SMALL PHONE
+   280px - 340px
+========================================= */
+
+@media (max-width: 340px) {
+
+    body {
+        padding: 8px 6px;
+    }
+
+    .container {
+        width: 100%;
+
+        padding: 9px;
+
+        border-radius: 9px;
+    }
+
+    h1 {
+        font-size: 17px;
+
+        margin-bottom: 8px;
+    }
+
+    .score-board {
+        gap: 6px;
+
+        margin-bottom: 8px;
+    }
+
+    .box {
+        min-height: 42px;
+
+        border-radius: 7px;
+    }
+
+    .box h3 {
+        font-size: 8px;
+
+        margin-bottom: 2px;
+    }
+
+    .box p {
+        font-size: 14px;
+    }
+
+    .game-area {
+        width: 100%;
+
+        max-width: none;
+
+        border-radius: 6px;
+    }
+
+    .buttons {
+        gap: 6px;
+
+        margin-top: 9px;
+    }
+
+    button {
+        padding: 6px 9px;
+
+        border-radius: 4px;
+
+        font-size: 8px;
+    }
+
+    .instructions {
+        margin-top: 9px;
+
+        padding: 8px;
+
+        border-radius: 7px;
+    }
+
+    .instructions h2 {
+        font-size: 12px;
+
+        margin-bottom: 5px;
+    }
+
+    .instructions ul {
+        padding-left: 16px;
+    }
+
+    .instructions li {
+        font-size: 8px;
+
+        line-height: 1.35;
+
+        margin: 3px 0;
+    }
+}
+
+
+/* =========================================
+   EXTRA SMALL PHONE
+   279px AND BELOW
+========================================= */
+
+@media (max-width: 279px) {
+
+    body {
+        padding: 5px;
+    }
+
+    .container {
+        padding: 7px;
+    }
+
+    h1 {
+        font-size: 15px;
+    }
+
+    .score-board {
+        gap: 5px;
+    }
+
+    .box {
+        min-height: 38px;
+    }
+
+    .box h3 {
+        font-size: 7px;
+    }
+
+    .box p {
+        font-size: 12px;
+    }
+
+    .buttons {
+        gap: 5px;
+    }
+
+    button {
+        padding: 5px 7px;
+
+        font-size: 7px;
+    }
+
+    .instructions li {
+        font-size: 7px;
+    }
+}
+
+
+/* =========================================
+   SHORT SCREEN DEVICES
+========================================= */
+
+@media (max-height: 650px) {
+
+    body {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .container {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    h1 {
+        margin-bottom: 8px;
+    }
+
+    .score-board {
+        margin-bottom: 8px;
+    }
+
+    .buttons {
+        margin-top: 8px;
+    }
+
+    .instructions {
+        margin-top: 8px;
+    }
+}
+
+
+/* =========================================
+   TOUCH DEVICES
+========================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    button {
+        min-height: 34px;
+    }
+
+    .game-area {
+        touch-action: manipulation;
+    }
+}
