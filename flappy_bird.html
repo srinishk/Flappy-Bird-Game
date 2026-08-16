@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Flappy Bird</h1>
+
+        <!-- Score Board -->
+        <div class="score-board">
+
+            <div class="box">
+                <h3>Score</h3>
+                <p id="score">0</p>
+            </div>
+
+            <div class="box">
+                <h3>High Score</h3>
+                <p id="high-score">0</p>
+            </div>
+
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area" id="game-area">
+
+            <!-- Clouds -->
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+
+            <!-- Bird -->
+            <div id="bird"></div>
+
+            <!-- Top Pipe -->
+            <div id="pipe-top" class="pipe"></div>
+
+            <!-- Bottom Pipe -->
+            <div id="pipe-bottom" class="pipe"></div>
+
+            <!-- Game Over -->
+            <div id="game-over">
+                <h2>Game Over</h2>
+                <p>Press Restart to Play Again</p>
+            </div>
+
+        </div>
+        <!--Controls-->
+
+        <div class="buttons">
+            <button onclick="startGame()">▶ Start Game</button>
+            <button onclick="restartGame()">↻ Restart Game</button>
+        </div>
+
+        <!--Instructions-->
+        <div class="instructions">
+            <h2>How to Play</h2>
+            <ul>
+                <li>Press <b>Spacebar</b> to make the bird jump</li>
+                <li>🖱️ You can aslo cick inside the game area</li>
+                <li>🎍 Avoid hitting the pipes</li>
+                <li>🏆 Earn 1 point for every pipe you pass</li>
+                <li>🎯 Beat your highest score</li>
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
